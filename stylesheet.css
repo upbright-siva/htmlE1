@@ -1,0 +1,222 @@
+:root{
+  --ink:      #1B3A34;   /* deep teal-black, primary text */
+  --paper:    #F3EEE1;   /* aged paper */
+  --panel:    #E4DBC3;   /* ticket stock */
+  --stamp:    #C1443C;   /* postal red accent */
+  --gold:     #A9822F;   /* rule / foil line */
+  --paper-2:  #FFFFFF;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+body{
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  padding:2rem 1.25rem 4rem;
+}
+
+.wrap{ max-width:920px; margin:0 auto; }
+
+/* ---- Masthead ---- */
+.masthead{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  border-bottom:3px solid var(--ink);
+  padding-bottom:0.75rem;
+  margin-bottom:0.5rem;
+}
+.masthead h1{
+  font-family:'Bebas Neue', sans-serif;
+  font-size:clamp(2rem, 5vw, 3rem);
+  letter-spacing:0.04em;
+}
+.masthead .issue{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.7rem;
+  letter-spacing:0.08em;
+  color:var(--gold);
+  text-transform:uppercase;
+}
+
+.intro{
+  max-width:60ch;
+  font-style:italic;
+  color:#3d5850;
+  margin:1rem 0 2rem;
+  font-size:0.98rem;
+}
+
+/* ---- Boarding-pass header ---- */
+.boarding{
+  background:var(--ink);
+  color:var(--paper);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:1.1rem 1.5rem;
+  border-radius:6px;
+  position:relative;
+  overflow:hidden;
+}
+.boarding::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:repeating-linear-gradient(
+    to right, transparent 0 10px, rgba(243,238,225,0.06) 10px 11px
+  );
+  pointer-events:none;
+}
+.boarding h2{
+  font-family:'Bebas Neue', sans-serif;
+  font-size:1.6rem;
+  letter-spacing:0.06em;
+}
+.boarding span{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.7rem;
+  letter-spacing:0.12em;
+  opacity:0.75;
+  text-transform:uppercase;
+}
+
+/* ---- Layout: CSS Grid instead of float ---- */
+.board{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:0;
+  margin-top:1.5rem;
+  border:1px solid var(--gold);
+  border-radius:6px;
+  overflow:hidden;
+  background:var(--paper-2);
+}
+
+nav{
+  background:var(--panel);
+  padding:1.5rem 1rem;
+  border-right:2px dashed var(--gold);
+  position:relative;
+}
+nav::before{
+  content:"DESTINATIONS";
+  display:block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.65rem;
+  letter-spacing:0.15em;
+  color:var(--gold);
+  margin-bottom:0.9rem;
+}
+nav ul{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:0.4rem;
+}
+nav a{
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+  text-decoration:none;
+  color:var(--ink);
+  font-weight:600;
+  font-size:0.95rem;
+  padding:0.55rem 0.6rem;
+  border-radius:4px;
+  transition:background 0.15s ease, padding-left 0.15s ease;
+}
+nav a::before{
+  content:"✈";
+  font-size:0.75rem;
+  color:var(--stamp);
+}
+nav a:hover,
+nav a:focus-visible{
+  background:var(--paper-2);
+  padding-left:0.9rem;
+  outline:none;
+}
+nav li.active a{
+  background:var(--ink);
+  color:var(--paper);
+}
+nav li.active a::before{ color:var(--paper); }
+
+article{
+  padding:2rem 2.2rem;
+}
+.eyebrow{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.7rem;
+  letter-spacing:0.12em;
+  color:var(--stamp);
+  text-transform:uppercase;
+  margin-bottom:0.4rem;
+}
+article h1{
+  font-family:'Bebas Neue', sans-serif;
+  font-size:clamp(2.2rem, 5vw, 3.2rem);
+  letter-spacing:0.02em;
+  margin-bottom:0.9rem;
+  color:var(--ink);
+}
+article p{
+  max-width:62ch;
+  margin-bottom:1rem;
+  color:#2c443d;
+}
+article p + p{
+  border-top:1px solid #ddd3ba;
+  padding-top:1rem;
+}
+
+/* ---- Footer: postmark stamp ---- */
+footer{
+  margin-top:1.5rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0.9rem 1.5rem;
+  border:2px solid var(--ink);
+  border-radius:6px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.08em;
+  color:var(--ink);
+}
+footer .mark{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border:2px solid var(--stamp);
+  border-radius:50%;
+  color:var(--stamp);
+  font-family:'Bebas Neue', sans-serif;
+  font-size:0.7rem;
+}
+
+/* ---- Responsive: stack, no float needed ---- */
+@media (max-width:640px){
+  .board{ grid-template-columns:1fr; }
+  nav{
+    border-right:none;
+    border-bottom:2px dashed var(--gold);
+  }
+  nav ul{ flex-direction:row; flex-wrap:wrap; }
+  article{ padding:1.5rem 1.25rem; }
+}
+
+a:focus-visible,
+button:focus-visible{
+  outline:2px solid var(--stamp);
+  outline-offset:2px;
+}
+
+.responsive {
+  font-weight: bold;
+}
